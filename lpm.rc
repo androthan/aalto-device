@@ -1,0 +1,116 @@
+# Low power mode init script for Samsung YP-GS1
+# /Charging mode
+# Jonathan Grundmann, <androthan<at>gmail<dot>com, 2015
+# Based on the work from SAMSUNG (2011)
+#
+
+on early-init
+
+    start ueventd
+
+on init
+
+sysclktz 0
+
+loglevel 3
+
+# setup the global environment
+    export PATH /sbin:/system/bin
+    export LD_LIBRARY_PATH /system/lib
+    export ANDROID_BOOTLOGO 0
+    export ANDROID_ROOT /system
+
+    mkdir /mnt 0775 root system
+    mkdir /system
+    mkdir /data 0771 system system
+ 
+    # Secure container public mount points.
+    mkdir /mnt/asec  0700 root system
+    mount tmpfs tmpfs /mnt/asec mode=0755,gid=1000
+
+# add opps panic    
+    write /proc/sys/kernel/panic_on_oops 1
+ 
+# make debug directory for debugfs
+    # Mount Debug file system for enabling Power Management features
+    mkdir /debug
+    mount debugfs debugfs /debug
+
+on fs
+# mount system (ext4) partitions
+    mount ext4 /dev/block/mmcblk0p8 /system wait ro
+
+# We chown/chmod /data again so because mount is run as root + defaults
+    mount ext4 /dev/block/mmcblk0p9 /data
+
+# mount param partition
+    insmod /lib/modules/j4fs.ko
+    mkdir /mnt/.lfs 0755 root root
+    mount j4fs /dev/block/mmcblk0p4 /mnt/.lfs
+    insmod /lib/modules/param/param.ko
+
+on post-fs
+    # once everything is setup, no need to modify /
+    mount rootfs rootfs / rw remount
+
+# create log system 
+    chmod 0777 /data/log
+    chmod 0777 /data/anr	
+
+# Initialize Bluetooth system
+    chmod 0770 sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    write sys/class/rfkill/rfkill0/state 0
+# VERSION: btips 2.22.33 
+
+    # Enabling sleep in idle path
+    write /debug/pm_debug/sleep_while_idle 1
+
+    # Enabling Voltage OFF in idle path
+    write /debug/pm_debug/voltage_off_while_idle 1
+
+    # Enabling OFF mode
+    write /debug/pm_debug/enable_off_mode 1
+
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor conservative
+
+    # Permissions for System Server and daemons.
+    chown system system /sys/class/backlight/omap_bl/brightness
+
+on boot
+# basic network init
+    ifup lo
+    hostname localhost
+    domainname localdomain
+
+    class_start default
+
+service debuggerd /system/bin/debuggerd
+
+## Daemon processes to be run by init.
+##
+service ueventd /sbin/ueventd
+    critical
+
+service console /system/bin/sh
+    console
+    disabled
+    user shell
+    group log
+
+on property:ro.secure=0
+    start console
+
+# adbd is controlled by the ro.secure system property
+service adbd /sbin/adbd
+    disabled
+
+on property:ro.secure=1
+    start adbd
+
+service playlpm /system/bin/playlpm
+    user root
+
+service lpmkey /system/bin/charging_mode
+    user root
+

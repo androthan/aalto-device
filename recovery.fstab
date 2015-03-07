@@ -1,0 +1,14 @@
+# Recovery FS table for Samsung YP-GS1
+# Jonathan Grundmann, androthan<at>gmail<dot>com, 2015
+
+# Mountpoint FStype  Device DIR
+
+/boot       bml     /dev/block/mmcblk0p5
+/recovery   bml     /dev/block/mmcblk0p6
+
+/efs        ext4    /dev/block/mmcblk0p1
+/cache      ext4    /dev/block/mmcblk0p7
+/data       ext4    /dev/block/mmcblk0p9
+/system     ext4    /dev/block/mmcblk0p8
+/emmc       vfat    /dev/block/mmcblk0p10
+/sdcard     vfat    /dev/block/mmcblk1p1
