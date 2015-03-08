@@ -27,9 +27,6 @@
     <!-- There is no charging LED. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
-    <!-- Our amoled doesn't animate well. -->
-    <bool name="config_animateScreenLights">false</bool>
-
     <!-- disable menu hard key on YP-GS1 in non-pattern lockscreen -->
     <bool name="config_disableMenuKeyInLockScreen">true</bool>
 
@@ -161,7 +158,7 @@
     <integer name="config_screenBrightnessDim">10</integer>
 
     <!-- Boolean indicating whether the wifi chipset has p2p support -->
-    <bool translatable="false" name="config_wifi_p2p_support">true</bool>
+    <bool translatable="false" name="config_wifi_p2p_support">false</bool>
 
     <!-- OMAP3 doesn't handle this blur effect very quickly. -->
     <bool name="config_sf_slowBlur">true</bool>
@@ -169,8 +166,6 @@
     <!-- The default iface on which to monitor data use -->
     <string name="config_datause_iface">tiwlan0</string>
 
-    <!-- Is the notification LED intrusive? Used to decide if there should be a disable option -->
-    <bool name="config_intrusiveNotificationLed">true</bool>
 
     <!-- Boolean indicating if restoring network selection should be skipped -->
     <!-- The restoring is handled by modem if it is true -->
@@ -188,7 +183,7 @@
 
     <!-- Timeout in MS for how long you have to long-press the back key to
          kill the foreground app. -->
-    <integer name="config_backKillTimeout">1500</integer>
+    <integer name="config_backKillTimeout">2000</integer>
 
     <!-- Hardware 'face' keys present on the device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
