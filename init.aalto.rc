@@ -556,13 +556,6 @@ service iprenew_tiwlan0 /system/bin/dhcpcd -n
 
 ##WIFI##
 
-# Bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 114 115 116
-
 # Orientation daemon
 service orientationd /system/bin/orientationd
     class main
