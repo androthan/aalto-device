@@ -131,6 +131,7 @@ PRODUCT_PACKAGES := \
     bootmenu_busybox \
     camera.aalto \
     power.aalto \
+    lights.aalto \
     dhcpcd.conf \
 
 # Audio drivers
