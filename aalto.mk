@@ -178,6 +178,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=tiwlan0 \
        wifi.supplicant_scan_interval=300 \
        ro.telephony.ril_class=SamsungRIL \
+       dev.sfbootcomplete=0
 
 
 # Specific default properties
