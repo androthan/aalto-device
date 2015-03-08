@@ -130,6 +130,7 @@ PRODUCT_PACKAGES := \
     bdaddr_read \
     bootmenu_busybox \
     camera.aalto \
+    power.aalto \
     dhcpcd.conf \
 
 # Audio drivers
