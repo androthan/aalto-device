@@ -26,7 +26,7 @@
 #include <hardware/power.h>
 
 #define CPUFREQ_CPU0 "/sys/devices/system/cpu/cpu0/cpufreq/"
-#define CPUFREQ_ONDEMAND "/sys/devices/system/cpu/cpufreq/ondemand/"
+#define CPUFREQ_ONDEMAND "/sys/devices/system/cpu/cpufreq/ondemandboost/"
 #define BOOSTPULSE_ONDEMAND (CPUFREQ_ONDEMAND "boostpulse")
 
 #define MAX_BUF_SZ  10
