@@ -8,4 +8,3 @@ ro.sf.lcd_density=160
 ro.HOME_APP_ADJ=1
 ro.cwm.enable_key_repeat=true
 ro.cwm.repeatable_keys=115,114,158
-sys.mem.max_hidden_apps=5
