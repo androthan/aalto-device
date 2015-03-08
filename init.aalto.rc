@@ -439,6 +439,9 @@ on boot
     # to enable wifi - for TIWLAN
     setprop wifi.interface "tiwlan0"
 
+# FSync
+    chown system system /sys/module/sync/parameters/fsync_enabled
+
 # fake some battery state
     setprop status.battery.state Slow
     setprop status.battery.level 5
