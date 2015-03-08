@@ -1,7 +1,7 @@
 #!/stage1/busybox sh
 export PATH=/stage1
 
-# Bootstrap for Samsung Galaxy Player 3.6
+# Bootstrap for Samsung YP-GS1
 # Trial Boot: /system - /recovery - /lpm
 #
 busybox cd /
@@ -13,16 +13,18 @@ busybox mkdir -p /sys
 busybox mount -t proc proc /proc
 busybox mount -t sysfs sysfs /sys
 
+# Android ramdisk
 RAMDISK=ramdisk-system.cpio.gz
 
+# Recovery boot
 if busybox grep -q bootmode=2 /proc/cmdline || busybox grep -q androidboot.mode=reboot_recovery /proc/cmdline ; then
     RAMDISK=ramdisk-recovery.cpio.gz
 fi
 
 busybox gunzip -c ${RAMDISK} | busybox cpio -i
 
+# Low power mode
 if busybox grep -q bootmode=5 /proc/cmdline || busybox grep -q androidboot.mode=usb_charger /proc/cmdline ; then
-    # charging mode
     busybox cp lpm.rc init.rc
 	busybox rm init.aalto.rc
 fi

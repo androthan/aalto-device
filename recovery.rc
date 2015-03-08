@@ -1,6 +1,5 @@
 # Recovery initialization script for Samsung YP-GS1
 # CWM/Android<3e>
-# Jonathan Grundmann, androthan<at>gmail<dot>com, 2015
 # Based on SAMSUNG template
 #
 
@@ -48,8 +47,6 @@ on early-fs
 on fs
     mount tmpfs tmpfs /tmp
     mount ext4 /dev/block/mmcblk0p1 /efs
-#    mount ext4 /dev/block/mmcblk0p8 /system
-#    mount ext4 /dev/block/mmcblk0p7 /cache
 
 # SEC_DMCRYPT for MC_CRYPT_ROOT before apply_disk_policy or apply_sec_devenc_init
     #chown system system /efs

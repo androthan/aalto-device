@@ -1,7 +1,6 @@
-# inherit from the proprietary version
 -include vendor/samsung/aalto/BoardConfigVendor.mk
 
-# Board properties
+# Gerneric board properties
 TARGET_BOARD_PLATFORM := omap3
 TARGET_BOOTLOADER_BOARD_NAME := aalto
 TARGET_CPU_ABI := armeabi-v7a
@@ -12,16 +11,19 @@ TARGET_ARCH_VARIANT_CPU := cortex-a8
 TARGET_ARCH_VARIANT_FPU := neon
 COMMON_GLOBAL_CFLAGS += -DOMAP_COMPAT -DOMAP_ENHANCEMENT -DTARGET_OMAP3
 
+# Bootanimation optimizations
 TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 TARGET_BOOTANIMATION_USE_RGB565 := true
 
+# Boot properties
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 TARGET_PROVIDES_INIT_TARGET_RC := true
 TARGET_RECOVERY_INITRC := device/samsung/aalto/recovery.rc
 
+# Boot image properties
 BOARD_NAND_PAGE_SIZE := 4096 -s 128
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_NAND_SPARE_SIZE := 128
@@ -32,7 +34,7 @@ BOARD_PAGE_SIZE := 4096
 BOARD_CUSTOM_BOOTIMG_MK := device/samsung/aalto/mkbootimg.mk
 TARGET_PREBUILT_KERNEL := device/samsung/aalto/kernel
 
-# recovery
+# Recovery
 BOARD_BML_BOOT := /dev/block/mmcblk0p5
 BOARD_BML_RECOVERY := /dev/block/mmcblk0p6
 BOARD_USES_MMCUTILS := true
@@ -40,7 +42,7 @@ BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/samsung/aalto/recovery/recovery_keys.c
 
-# fix this up by examining /proc/mtd on a running device
+# Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 8388608
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 528424960
@@ -55,7 +57,7 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/usb_mass_storage/lun%d
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/samsung/aalto/releasetools/aalto_ota_from_target_files
 TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT := ./device/samsung/aalto/releasetools/aalto_img_from_target_files
 
-# Vibrator
+# Vibrator implementation
 BOARD_HAS_VIBRATOR_IMPLEMENTATION := ../../device/samsung/aalto/vibrator/tspdrv.c
 
 # Bluetooth
@@ -98,7 +100,7 @@ BOARD_FM_DEVICE := si4709
 # Camera
 BOARD_CAMERA_LIBRARIES := libcamera
 
-# Wifi related defines
+# Wifi 
 USES_TI_WL1271 := true
 BOARD_WPA_SUPPLICANT_DRIVER := CUSTOM
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := libCustomWifi

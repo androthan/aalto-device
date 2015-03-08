@@ -1,4 +1,5 @@
 #!/bin/bash
+# Ramdisk maker for Samsung YP-GS1
 
 pushd out/target/product/aalto/root/
 chmod 0644 *.rc default.prop

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# These are the hardware-specific configuration files
+# Hardware (Audio, storage,..) configuration files
 PRODUCT_COPY_FILES := \
 	device/samsung/aalto/etc/asound.conf:system/etc/asound.conf \
 	device/samsung/aalto/etc/gps.conf:system/etc/gps.conf \
@@ -21,7 +21,7 @@ PRODUCT_COPY_FILES := \
 	device/samsung/aalto/egl.cfg:system/lib/egl/egl.cfg \
 	device/samsung/aalto/etc/powervr.ini:system/etc/powervr.ini
 
-# Init files
+# Ramdisk files (basic filesystem)
 PRODUCT_COPY_FILES += \
 	device/samsung/aalto/init.aalto.rc:root/init.aalto.rc \
 	device/samsung/aalto/init.aalto.usb.rc:root/init.aalto.usb.rc \
@@ -30,7 +30,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/aalto/ueventd.aalto.rc:root/ueventd.aalto.rc \
 	device/samsung/aalto/ueventd.aalto.rc:recovery/root/ueventd.aalto.rc
 
-# Configuration files for audio
+# Audio configuration files
 PRODUCT_COPY_FILES += \
 	device/samsung/aalto/etc/audio/aeqcoe.txt:system/etc/audio/aeqcoe.txt \
 	device/samsung/aalto/etc/audio/LVVEFS_Rx_Configuration.txt:system/etc/audio/LVVEFS_Rx_Configuration.txt \
@@ -77,7 +77,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/aalto/etc/audio/codec/VtCallSpk.ini:system/etc/audio/codec/VtCallSpk.ini \
 	device/samsung/aalto/etc/audio/codec/VtCallSpkAmp.ini:system/etc/audio/codec/VtCallSpkAmp.ini
 
-# wifi configuration files
+# Wifi configuration files
 PRODUCT_COPY_FILES += \
     device/samsung/aalto/etc/wifi/firmware.bin:system/etc/wifi/firmware.bin \
     device/samsung/aalto/etc/wifi/tiwlan_plt.ini:system/etc/wifi/tiwlan_plt.ini \
@@ -86,12 +86,12 @@ PRODUCT_COPY_FILES += \
     device/samsung/aalto/etc/wifi/softap/tiwlan_ap.ini:system/etc/wifi/softap/tiwlan_ap.ini \
     device/samsung/aalto/etc/wifi/tiwlan.ini:system/etc/wifi/tiwlan.ini
  
-# configuration files
+# Media codecs
 PRODUCT_COPY_FILES += \
     device/samsung/aalto/etc/media_profiles.xml:system/etc/media_profiles.xml \
     device/samsung/aalto/etc/media_codecs.xml:system/etc/media_codecs.xml
 
-#Bluetooth configuration file
+# Bluetooth configuration file
 PRODUCT_COPY_FILES += \
     device/samsung/aalto/etc/bluetooth/main.conf:system/etc/bluetooth/main.conf
 
@@ -106,7 +106,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
        device/samsung/aalto/usr/idc/sec_touchscreen.idc:system/usr/idc/sec_touchscreen.idc
 
-# These are the hardware-specific features
+# Hardware specific permissions
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
 	frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
@@ -129,19 +129,18 @@ PRODUCT_PACKAGES := \
     com.android.future.usb.accessory \
     bdaddr_read \
     bootmenu_busybox \
-    SamsungServiceMode
+    camera.aalto \
+    dhcpcd.conf \
 
-# ICS sound
+# Audio drivers
 PRODUCT_PACKAGES += \
 	hcitool hciattach hcidump \
 	libaudioutils audio.a2dp.default audio_policy.aalto \
 	libaudiohw_legacy audio.primary.omap3 audio.usb.default
 
+# Audio policy configuration
 PRODUCT_COPY_FILES += \
 	device/samsung/aalto/libaudio/audio_policy.conf:system/etc/audio_policy.conf
-
-#Camera
-PRODUCT_PACKAGES += camera.aalto
 
 # OMX stuff
 PRODUCT_PACKAGES += \
@@ -163,12 +162,6 @@ PRODUCT_PACKAGES += \
     libOMX.TI.WMA.decode \
     libOMX_Core \
 
-# Wi-Fi binaries (opensource)
-PRODUCT_PACKAGES += \
-    wlan_loader \
-    wlan_cu \
-    dhcpcd.conf 
-
 # Device specific overlay
 DEVICE_PACKAGE_OVERLAYS += device/samsung/aalto/overlay
 
@@ -182,12 +175,11 @@ PRODUCT_PROPERTY_OVERRIDES := \
 # be reachable from resources or other mechanisms.
 PRODUCT_PROPERTY_OVERRIDES += \
        wifi.interface=tiwlan0 \
-       wifi.supplicant_scan_interval=180 \
+       wifi.supplicant_scan_interval=300 \
        ro.telephony.ril_class=SamsungRIL \
-       ro.telephony.ril.v3=icccardstatus,datacall,signalstrength,facilitylock
 
 
-# Set default USB interface
+# Specific default properties
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mass_storage \
     ro.hardware=aalto
@@ -218,7 +210,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vold.umsdirtyratio=20
 
-# Vold
+# Vold configuartion
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.vold.switchablepair=/mnt/emmc,/mnt/sdcard
 
@@ -233,20 +225,18 @@ include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
 # PRODUCT_LOCALES expansion must not be a density.
 PRODUCT_LOCALES := mdpi
 
-# other kernel modules not in ramdisk
+# Kernel modules (*.ko)
 PRODUCT_COPY_FILES += $(foreach module,\
 	$(filter-out $(RAMDISK_MODULES),$(wildcard device/samsung/aalto/modules/*.ko)),\
 	$(module):system/lib/modules/$(notdir $(module)))
 
+# Prebuilt kernel (2.6.35.7-CL1184553)
+# Sources avaible at https://github.com/androthan/aalto-kernel/tree/jellybean
 ifeq ($(TARGET_PREBUILT_KERNEL),)
     LOCAL_KERNEL := device/samsung/aalto/kernel
 else
     LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 endif
-
-# Device scripts
-PRODUCT_COPY_FILES += \
-	device/samsung/aalto/scripts/fix_mac.sh:system/bin/fix_mac.sh \
 
 # OTA update files 
 # This uses the service from https://www.otaupdatecenter.pro
@@ -258,7 +248,7 @@ PRODUCT_COPY_FILES += \
 	device/samsung/aalto/ota/etc/permissions/com.otaudater.feature.xml:system/etc/permissions/com.otaudater.feature.xml \
 
 
-# kernel modules for ramdisk
+# Kernel modules (*.ko) for ramdisk
 PRODUCT_COPY_FILES += \
 	$(call find-copy-subdir-files,*,device/samsung/aalto/modules/ramdisk,root/lib/modules)
 

@@ -1,3 +1,4 @@
+# USB initialization for Samsung YP-GS1
 on property:persist.sys.usb.config=mass_storage,adb
     write /sys/class/usb_composite/adb/enable 1
     start adbd

@@ -1,3 +1,4 @@
+# Main initialization script for the Samsung YP-GS1 (Aalto board)
 import init.aalto.usb.rc
 
 on early-init
@@ -66,6 +67,10 @@ on fs
     symlink /data/local/tmp /tmp
 
     mount debugfs debugfs /debug
+
+   # cap max CPU frequency to 1 GHz as soon as possible
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 1000000
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor performance
 
     # additional kernel modules
     insmod /system/lib/modules/Si4709_driver.ko
@@ -463,26 +468,21 @@ on boot
 # Increase readahead buffers on MMC devices
     write /sys/block/mmcblk0/bdi/read_ahead_kb 1024
 
-# Fix wifi MAC address
-#service fix_mac /system/bin/sh /system/bin/fix_mac.sh
-#    class main
-#    user root
-#    oneshot
-
-# 3D init
+# PVR init
 service pvrsrvinit /system/bin/pvrsrvinit
     class core
     user root
     group root
     oneshot
 
-# load DSP firmware
+# DSP firmware loader
 service baseimage /system/bin/cexec.out /system/lib/dsp/baseimage.dof
     class core
     user root
     group system audio camera graphics inet net_bt net_bt_admin net_raw media
     oneshot
 
+# Bluetooth MAC reader
 service bdaddr /system/bin/bdaddr_read
     user root
     disabled
@@ -491,19 +491,22 @@ service bdaddr /system/bin/bdaddr_read
 on property:init.svc.bootanim=running
     start bdaddr
 
-service hciattach /system/bin/logwrapper /system/bin/hciattach -n /dev/ttyS1 texas 3000000
+# Bluetooth
+service hciattach /system/bin/hciattach -n /dev/ttyS1 texas 3000000
     class main
     group bluetooth net_bt_admin
     disabled
     oneshot
 
 ##WIFI##
+# WPA supplicant
 service wpa_supplicant /system/bin/wpa_supplicant -Dtiwlan0 -itiwlan0 -c/data/misc/wifi/wpa_supplicant.conf
     class main
     socket wpa_tiwlan0 dgram 0660 wifi wifi
     disabled
     oneshot
 
+# Firmware loader
 service wlan_loader /system/bin/tiwlan_loader -i /system/etc/wifi/tiwlan.ini -f /system/etc/wifi/firmware.bin -e /data/misc/wifi/nvs_map.bin
     class main
     disabled
@@ -514,11 +517,13 @@ service wlan_plt_loader /system/bin/tiwlan_loader -i /system/etc/wifi/tiwlan_plt
     disabled
     oneshot
 
+# IP config
 service ifcfg_tiwlan_up /system/bin/ifconfig tiwlan0 up
     class main
     disabled
     oneshot
 
+# TIWLAN calibration
 service tiwlan_plts /system/bin/tiwlan_plts
     class main
     disabled
@@ -529,11 +534,13 @@ service tiwlan_nvs /system/bin/tiwlan_plts -n
     disabled
     oneshot
 
+# SoftAP file
 service wlan_ap_loader /system/bin/tiap_loader -i /system/etc/wifi/softap/tiwlan_ap.ini -f /system/etc/wifi/softap/ap_firmware.bin -e /data/misc/wifi/nvs_map.bin
     class main
     disabled
     oneshot
 
+# DHCP services
 service dhcpcd_tiwlan0 /system/bin/dhcpcd -ABKL tiwlan0
     class main
     disabled
@@ -546,25 +553,28 @@ service iprenew_tiwlan0 /system/bin/dhcpcd -n
 
 ##WIFI##
 
-# bugreport is triggered by holding down volume down, volume up and power
+# Bugreport is triggered by holding down volume down, volume up and power
 service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     class main
     disabled
     oneshot
     keycodes 114 115 116
 
+# Orientation daemon
 service orientationd /system/bin/orientationd
     class main
     oneshot
     user compass
     group input
 
+# Geomagnetic daemon
 service geomagneticd /system/bin/geomagneticd
     class main
     oneshot
     user compass
     group system input
 
+# Internal storage
 on property:init.svc.vold=running
     symlink /storage/sdcard1 /sdcard
     symlink /storage/sdcard1 /mnt/sdcard

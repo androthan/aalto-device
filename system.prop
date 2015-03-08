@@ -1,15 +1,11 @@
 #
-# system.prop for YP-GS1
+# system.prop for Samsung YP-GS1
 #
 
 rild.libpath=/system/lib/libsec-ril-apalone.so
 rild.libargs=-d /dev/ttyS0
 ro.sf.lcd_density=160
 ro.HOME_APP_ADJ=1
-
-# CWM key repeat
 ro.cwm.enable_key_repeat=true
 ro.cwm.repeatable_keys=115,114,158
-
-## Limit activities
 sys.mem.max_hidden_apps=5

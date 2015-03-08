@@ -1,3 +1,4 @@
+# Boot image maker for Samsung YP-GS1
 LOCAL_PATH := $(call my-dir) 
 
 MASTER_BOOTSTRAP := $(PRODUCT_OUT)/bootstrap.cpio.gz

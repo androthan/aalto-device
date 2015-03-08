@@ -1,6 +1,5 @@
 # Low power mode init script for Samsung YP-GS1
 # /Charging mode
-# Jonathan Grundmann, <androthan<at>gmail<dot>com, 2015
 # Based on the work from SAMSUNG (2011)
 #
 
@@ -87,8 +86,7 @@ on boot
 
 service debuggerd /system/bin/debuggerd
 
-## Daemon processes to be run by init.
-##
+# Daemon processes to be run by init.
 service ueventd /sbin/ueventd
     critical
 
