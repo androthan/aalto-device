@@ -912,8 +912,8 @@ status_t AudioHardware::setFMRadioPath_l(uint32_t device)
 
     switch(device){
          case AudioSystem::DEVICE_OUT_SPEAKER:
-            ALOGD("setFMRadioPath_l() fmradio speaker route");
-            fmpath = "SPK";
+            ALOGD("setFMRadioPath_l() fmradio speaker route -- force to headjack");
+            fmpath = "HP";
             break;
 
         case AudioSystem::DEVICE_OUT_WIRED_HEADSET:
