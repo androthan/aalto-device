@@ -38,7 +38,7 @@
 #define PIXEL_FORMAT       V4L2_PIX_FMT_YUYV
 //Define Cameras
 #define CAMERA_BF 0 //Back Camera
-#define CAMERA_FF 1
+#define CAMERA_FF 1 //Front camera (front-facing)
 
 #define PIX_YUV422I 0
 
@@ -210,9 +210,9 @@ void CameraHardware::initDefaultParameters(int CameraID)
     			p.setPreviewFrameRate(15);
 
 	}else{
-    		p.setPreviewFormat(CameraParameters::PIXEL_FORMAT_YUV420SP);
+    		p.setPreviewFormat("yuv420sp");
    		p.setPictureSize(PREVIEW_WIDTH, PREVIEW_HEIGHT);
-    		p.setPictureFormat(CameraParameters::PIXEL_FORMAT_JPEG);
+    		p.setPictureFormat("jpeg");
     		p.set(CameraParameters::KEY_JPEG_QUALITY, 100);
     		p.set("picture-size-values", CameraHardware::supportedPictureSizes_bfc);
 
@@ -224,8 +224,6 @@ void CameraHardware::initDefaultParameters(int CameraID)
 
     		        parameterString = CameraParameters::FOCUS_MODE_FIXED;
         		parameterString.append(",");
-        		parameterString.append(CameraParameters::FOCUS_MODE_MACRO);
-			parameterString.append(",");
 		        parameterString.append(FOCUS_MODE_FACEDETECTION);
 			p.set(CameraParameters::KEY_SUPPORTED_FOCUS_MODES,
               		parameterString.string());
@@ -1240,16 +1238,16 @@ status_t CameraHardware::setParameters(const CameraParameters& params)
         int  new_scene_mode = -1;
 
         // fps range is (15000,30000) by default.
-        mParameters.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(15000,30000)");
+        mParameters.set(CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(7000,30000)");
         mParameters.set(CameraParameters::KEY_PREVIEW_FPS_RANGE,
-                "15000,30000");
+                "7000,30000");
 
         if (!strcmp(new_scene_mode_str,(const char *) CameraParameters::SCENE_MODE_AUTO)) {
             new_scene_mode = SCENE_MODE_NONE;
         } else {
             // defaults for non-auto scene modes
             if (mCameraID==CAMERA_BF) {
-                new_focus_mode_str = CameraParameters::FOCUS_MODE_AUTO;
+                new_focus_mode_str = CameraParameters::FOCUS_MODE_FIXED;
             }
 
             if (!strcmp(new_scene_mode_str,
@@ -1296,16 +1294,10 @@ status_t CameraHardware::setParameters(const CameraParameters& params)
             int  new_focus_mode = -1;
 
             if (!strcmp(new_focus_mode_str,
-                       (const char *)  CameraParameters::FOCUS_MODE_AUTO)) {
-                new_focus_mode = FOCUS_MODE_AUTO;
+                       (const char *)  CameraParameters::FOCUS_MODE_FIXED)) {
+                new_focus_mode = FOCUS_MODE_FIXED;
                 mParameters.set(CameraParameters::KEY_FOCUS_DISTANCES,
                                 BACK_CAMERA_AUTO_FOCUS_DISTANCES_STR);
-            }
-            else if (!strcmp(new_focus_mode_str,
-                            (const char *) CameraParameters::FOCUS_MODE_MACRO)) {
-                new_focus_mode = FOCUS_MODE_MACRO;
-                mParameters.set(CameraParameters::KEY_FOCUS_DISTANCES,
-                                BACK_CAMERA_MACRO_FOCUS_DISTANCES_STR);
             }
             else if (!strcmp(new_focus_mode_str,FOCUS_MODE_FACEDETECTION)) {
                 new_focus_mode = FOCUS_MODE_FACEDETECT;
