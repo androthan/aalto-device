@@ -137,7 +137,7 @@ PRODUCT_PACKAGES := \
 # Audio drivers
 PRODUCT_PACKAGES += \
 	hcitool hciattach hcidump \
-	libaudioutils audio.a2dp.default audio_policy.aalto \
+	libaudioutils audio.a2dp.default \
 	libaudiohw_legacy audio.primary.omap3 audio.usb.default
 
 # Audio policy configuration
