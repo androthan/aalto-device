@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- HSPA -->
+    <PreferenceCategory
+                android:title="@string/hspa_subcat_title">
+        <com.cyanogenmod.settings.device.Hspa
+                android:key="hspa"
+                android:title="@string/hspa_title_head"
+                android:summary="@string/hspa_summary_head"
+                android:entries="@array/hspa_entries"
+                android:entryValues="@array/hspa_entries_values"
+                android:defaultValue="23" />
+    </PreferenceCategory>
+
+    <!-- Vibrator -->
+    <PreferenceCategory
+                android:title="@string/vibrator_subcat_title">
+        <com.cyanogenmod.settings.device.VibratorIntensity
+                android:key="vibrator_intensity"
+                android:title="@string/vibrator_intensity_title_head"
+                android:summary="@string/vibrator_intensity_summary_head"
+                android:entries="@array/vibrator_intensity_entries"
+                android:entryValues="@array/vibrator_intensity_entries_values"
+                android:defaultValue="1160" />
+    </PreferenceCategory>
+
+    <!-- Acelerometer -->
+    <PreferenceCategory
+                android:title="@string/accelerometer_subcat_title">
+        <Preference
+                android:key="accelerometer_calibration"
+                android:title="@string/accelerometer_calibration_title_head"
+                android:summary="@string/accelerometer_calibration_summary_head"
+                />
+    </PreferenceCategory>
+
+</PreferenceScreen>

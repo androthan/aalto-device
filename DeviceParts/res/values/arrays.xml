@@ -1,0 +1,50 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Haptic -->
+    <string-array name="vibrator_intensity_entries">
+        <item>0%</item>
+        <item>25%</item>
+        <item>50%</item>
+        <item>75%</item>
+        <item>100% (Default)</item>
+    </string-array>
+
+    <string-array name="vibrator_intensity_entries_values" translatable="false">
+        <item>700</item>
+        <item>800</item>
+        <item>900</item>
+        <item>1000</item>
+        <item>1160</item>
+    </string-array>
+
+    <!-- Radio -->
+    <string-array name="hspa_entries">
+        <item>UMTS Only</item>
+        <item>HSDPA Only</item>
+        <item>HSDPA + HSUPA</item>
+    </string-array>
+
+    <string-array name="hspa_entries_values" translatable="false">
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+    </string-array>
+
+    <!-- CPU freq boost -->
+    <string-array name="cpu_boost_freq_entries">
+        <item>300 MHz</item>
+        <item>600 MHz</item>
+        <item>800 MHz</item>
+        <item>1000 MHz</item>
+        <item>1200 MHz</item>
+    </string-array>
+
+    <string-array name="cpu_boost_freq_entries_values" translatable="false">
+        <item>300000</item>
+        <item>600000</item>
+        <item>800000</item>
+        <item>1000000</item>
+        <item>1200000</item>
+    </string-array>
+
+</resources>

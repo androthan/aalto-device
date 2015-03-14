@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/app_name">
+
+    <!-- Touchscreen -->
+    <PreferenceCategory
+                android:title="@string/touchscreen_subcat_title">
+        <com.cyanogenmod.settings.device.TouchscreenSensitivity
+                android:key="touchscreen_sensitivity"
+                android:title="@string/touchscreen_sensitivity_title_head"
+                android:summary="@string/touchscreen_sensitivity_summary_head" />
+        <CheckBoxPreference
+                android:key="touchscreen_disable_calibration"
+                android:title="@string/touchscreen_disable_calibration_title_head"
+                android:summary="@string/touchscreen_disable_calibration_summary_head"
+                android:defaultValue="false"
+                />
+    </PreferenceCategory>
+
+    <!-- Touchkeys -->
+    <PreferenceCategory
+                android:title="@string/touchkeys_subcat_title">
+        <com.cyanogenmod.settings.device.TouchkeysSensitivity
+                android:key="touchkeys_sensitivity"
+                android:title="@string/touchkeys_sensitivity_title_head"
+                android:summary="@string/touchkeys_sensitivity_summary_head" />
+        <CheckBoxPreference
+                android:key="touchkeys_timeout_disabled"
+                android:title="@string/touchkeys_timeout_disabled_title_head"
+                android:summary="@string/touchkeys_timeout_disabled_summary_head"
+                android:defaultValue="false"
+                />
+        <com.cyanogenmod.settings.device.TouchkeysTimeout
+                android:key="touchkeys_timeout"
+                android:title="@string/touchkeys_timeout_title_head"
+                android:summary="@string/touchkeys_timeout_summary_head" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

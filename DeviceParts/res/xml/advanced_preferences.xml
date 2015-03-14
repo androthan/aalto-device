@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- CPU Boost Freq -->
+    <PreferenceCategory
+                android:title="@string/cpu_boost_freq_subcat_title">
+        <com.cyanogenmod.settings.device.CpuBoostFreq
+                android:key="cpu_boost_freq"
+                android:title="@string/cpu_boost_freq_title_head"
+                android:summary="@string/cpu_boost_freq_summary_head"
+                android:entries="@array/cpu_boost_freq_entries"
+                android:entryValues="@array/cpu_boost_freq_entries_values"
+                android:defaultValue="800000" />
+    </PreferenceCategory>
+
+    <!-- WakeLocks -->
+    <PreferenceCategory
+                android:title="@string/wakelocks_subcat_title">
+        <!-- battery work -->
+        <com.cyanogenmod.settings.device.BatteryWorkDelay
+                android:key="battery_work_delay"
+                android:title="@string/battery_delay_title_head"
+                android:summary="@string/battery_delay_summary_head" />
+
+        <!-- svnet wakelock -->
+        <com.cyanogenmod.settings.device.SvnetWakelockTimeout
+                android:key="svnet_wakelock_timeout"
+                android:title="@string/svnet_wakelock_title_head"
+                android:summary="@string/svnet_wakelock_summary_head" />
+    </PreferenceCategory>
+
+    <!-- FSync -->
+    <PreferenceCategory
+                android:title="@string/fsync_subcat_title">
+        <com.cyanogenmod.settings.device.FSync
+                android:key="fsync"
+                android:title="@string/fsync_title_head"
+                android:summary="@string/fsync_summary_head"
+                android:defaultValue="false" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
