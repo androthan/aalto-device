@@ -61,6 +61,7 @@ static const int INITIAL_SKIP_FRAME = 3;
 #define FRONT_CAMERA_FOCUS_DISTANCES_STR "0.20,0.25,Infinity"
 const char FOCUS_MODE_FACEDETECTION[] = "facedetect";
 
+
 #include <cutils/properties.h>
 #ifndef UNLIKELY
 #define UNLIKELY(exp) (__builtin_expect( (exp) != 0, false ))
