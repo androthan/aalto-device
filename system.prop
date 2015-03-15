@@ -9,4 +9,5 @@ ro.HOME_APP_ADJ=1
 ro.cwm.enable_key_repeat=true
 ro.cwm.repeatable_keys=115,114,158
 ro.zram.default=0
+ro.ksm.default=1
 dalvik.vm.jit.codecachesize=0
