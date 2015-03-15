@@ -151,6 +151,11 @@ on post-fs-data
 # Permission for Vibration Intensity Setting
     chown system system /sys/vibetonz/pwmvalue_intensity
 
+# Enable kernel same page merging (KSM)
+    write /sys/kernel/mm/ksm/pages_to_scan 100
+    write /sys/kernel/mm/ksm/sleep_millisecs 500
+    write /sys/kernel/mm/ksm/run 1
+
 # change permissions for overlay managers and display devices
     chmod 0777 /sys/devices/platform/omapdss/manager0/name
     chmod 0777 /sys/devices/platform/omapdss/manager1/name
