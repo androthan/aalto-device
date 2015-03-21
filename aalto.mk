@@ -182,6 +182,18 @@ PRODUCT_PROPERTY_OVERRIDES += \
        dev.sfbootcomplete=0 \
        ro.hwui.disable_scissor_opt=true
 
+PRODUCT_PROPERTY_OVERRIDES += \
+       debug.performance.tuning=1 \
+       pm.sleep_mode=1 \
+       ro.ril.disable.power.collapse=0 \
+       ro.ril.fast.dormancy.rule=0 \
+       persist.sys.purgeable_assets=1 \
+       persist.sys.shutdown.mode=hibernate \
+       ro.config.hw_quickpoweron=true \
+       windowsmgr.max_events_per_sec=120 \
+       ro.max.fling_velocity=12000 \
+       ro.min.fling_velocity=8000 \
+
 
 # Specific default properties
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
