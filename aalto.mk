@@ -180,9 +180,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
        wifi.supplicant_scan_interval=300 \
        ro.telephony.ril_class=SamsungRIL \
        dev.sfbootcomplete=0 \
-       ro.hwui.disable_scissor_opt=true
-
-PRODUCT_PROPERTY_OVERRIDES += \
+       ro.hwui.disable_scissor_opt=true \
        debug.performance.tuning=1 \
        pm.sleep_mode=1 \
        ro.ril.disable.power.collapse=0 \
@@ -193,7 +191,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
        windowsmgr.max_events_per_sec=120 \
        ro.max.fling_velocity=12000 \
        ro.min.fling_velocity=8000 \
-
+       touch.pressure.scale=0.001 \
 
 # Specific default properties
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
