@@ -909,22 +909,11 @@ status_t AudioHardware::setFMRadioPath_l(uint32_t device)
          device -= AudioSystem::DEVICE_OUT_SPEAKER;
          ALOGD("setFMRadioPath_l() device removed speaker %x", device);
     }
-
+/* Fix for SpiritFM? */
     switch(device){
-         case AudioSystem::DEVICE_OUT_SPEAKER:
-            ALOGD("setFMRadioPath_l() fmradio speaker route -- force to headjack");
-            fmpath = "HP";
-            break;
-
-        case AudioSystem::DEVICE_OUT_WIRED_HEADSET:
-        case AudioSystem::DEVICE_OUT_WIRED_HEADPHONE:
-            ALOGD("setFMRadioPath_l() fmradio headphone route");
-            fmpath = "HP";
-            break;
-        default:
-            ALOGE("setFMRadioPath_l() fmradio error, route = [%d]", device);
-            fmpath = "HP";
-            break;
+        ALOGD("FM radio on YP-GS1 goes always to headphones -- adrt.15");
+        fmpath = "HP";
+        break;
     }
 
     if (mMixer != NULL) {
@@ -939,7 +928,7 @@ status_t AudioHardware::setFMRadioPath_l(uint32_t device)
             mixer_ctl_select(ctl, fmpath);
 	    //WM8994 sound chip (samsung-omap3 plat) requires MAX97000 mixer ctl to enable sound output
 	    if(strcmp(fmpath,"SPK")==0)
-			fmpath="INA -> SPK";
+			fmpath="INA -> HP";
 	    else if(strcmp(fmpath,"HP")==0)
 			fmpath="INB -> HP";
 	    else
