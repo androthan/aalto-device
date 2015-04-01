@@ -725,7 +725,7 @@ camera_memory_t* V4L2Camera::GrabJpegFrame (camera_request_memory mRequestMemory
 		nDequeued++;
 
 		//Latona Front Camera doesn't support Image Processing. Manually Encode the JPEG
-		if(IsFrontCam)		
+		//if(IsFrontCam)		
 		{	
 			ALOGV("YUVU Format");
 			fileSize =  videoIn->width * videoIn->height * 2;
@@ -741,7 +741,7 @@ camera_memory_t* V4L2Camera::GrabJpegFrame (camera_request_memory mRequestMemory
 		}
 		nQueued++;
 
-		if(!IsFrontCam)
+		//if(!IsFrontCam)
 		{	
 			fileSize=GetJpegImageSize();
 		}

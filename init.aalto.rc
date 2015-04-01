@@ -26,13 +26,6 @@ on early-init
     mkdir /debug
     mount debugfs /sys/kernel/debug /sys/kernel/debug
 
-    # mount param partition
-    insmod /lib/modules/j4fs.ko
-    mkdir /mnt/.lfs 0755 root root
-    mount j4fs  /dev/block/mmcblk0p4 /mnt/.lfs
-    chmod 0755 /mnt/.lfs
-    insmod /lib/modules/param.ko
-
 on fs
 
     mount ext4 /dev/block/mmcblk0p1 /efs 
